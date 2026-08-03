@@ -144,7 +144,7 @@
     <div class="chat">
       <div class="chat-head">
         <div class="t">Ask Kor<b>mic</b></div>
-        <div class="s">v9 · A working agent, answering from this page's knowledge. Ask it anything above — or something we didn't think of.</div>
+        <div class="s">v10 · A working agent, answering from this page's knowledge. Ask it anything above — or something we didn't think of.</div>
       </div>
       <div class="msgs" id="msgs">
         <div class="msg from-agent">Hi — I'm a Kormic agent. I answer from the verified knowledge on this page, and when I don't know something, I'll tell you honestly (in the real product, that's when a human gets asked — and I'd learn the answer forever). What would you like to know?</div>
@@ -191,9 +191,12 @@ function localAnswer(text){
   return "I don't have that in my knowledge, and I won't guess. This is exactly how Kormic works: in the real product, a Navigator would send this question to a named human at the university, their answer would come back to you, and I'd learn it permanently so the next person who asks gets it instantly.";
 }
 
+var chatHistory = [];
+var liveMode = true;
+
 function ask(t){ var i=document.getElementById('inp'); i.value=t; send(); }
 
-function send(){
+async function send(){
  try{
   var inp=document.getElementById('inp');
   var text=inp.value.trim();
@@ -203,16 +206,32 @@ function send(){
   var u=document.createElement('div'); u.className='msg from-user'; u.textContent=text; msgs.appendChild(u);
   var a=document.createElement('div'); a.className='msg from-agent thinking'; a.textContent='thinking\u2026'; msgs.appendChild(a);
   msgs.scrollTop=msgs.scrollHeight;
-  setTimeout(function(){
+  chatHistory.push({role:'user', content:text});
+
+  var reply = null;
+  if(liveMode){
     try{
-      a.classList.remove('thinking');
-      a.textContent=localAnswer(text);
-    }catch(err){
-      a.classList.remove('thinking');
-      a.textContent='Something broke in my page code: '+err.message;
+      var r = await fetch('/api/ask', {
+        method:'POST',
+        headers:{'content-type':'application/json'},
+        body: JSON.stringify({messages: chatHistory})
+      });
+      if(r.ok){
+        var d = await r.json();
+        if(d && d.reply) reply = d.reply;
+      }
+    }catch(err){ /* fall through to matcher */ }
+    if(reply === null){
+      liveMode = false;
+      var note = document.querySelector('.note');
+      if(note) note.textContent = 'Offline demo mode \u2014 answering by matching this page\u2019s knowledge directly.';
     }
-    msgs.scrollTop=msgs.scrollHeight;
-  }, 450);
+  }
+  if(reply === null) reply = localAnswer(text);
+  chatHistory.push({role:'assistant', content:reply});
+  a.classList.remove('thinking');
+  a.textContent = reply;
+  msgs.scrollTop=msgs.scrollHeight;
  }catch(err){
   var msgs2=document.getElementById('msgs');
   var e=document.createElement('div'); e.className='msg from-agent';
