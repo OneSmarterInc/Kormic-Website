@@ -127,3 +127,12 @@ footer{border-top:1px solid var(--line);padding:34px 0}
 .logo-wrap{display:flex;flex-direction:column;gap:2px}
 .logo-tag{font-family:"Fraunces",serif;font-style:italic;font-size:11px;color:var(--mute);letter-spacing:.02em}
 .logo-tag b{color:#5B8DEF;font-weight:500}
+
+.brand-col{display:flex;flex-direction:column;gap:4px;align-items:flex-start}
+.cert-pill{font-family:"Inter",sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:#9db9f2;border:1px solid rgba(91,141,239,.35);border-radius:999px;padding:3px 11px 3px 7px;background:rgba(91,141,239,.06);white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.cert-pill:hover{border-color:rgba(91,141,239,.65)}
+.cert-pill .bo{font-weight:500;color:var(--mute);text-transform:none;letter-spacing:.03em}
+.mk-hex{width:13px;height:13px;display:block}
+.foot-cert{color:var(--mute);font-size:12.5px;margin-top:10px;display:flex;align-items:center;gap:8px}
+.foot-cert a{color:#9db9f2;text-decoration:none;border-bottom:1px solid rgba(91,141,239,.35)}
+.legal-line{font-size:11px;color:var(--mute);opacity:.75;margin-top:6px}

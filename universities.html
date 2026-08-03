@@ -20,13 +20,22 @@
   .foot-cert{color:var(--mute);font-size:12.5px;margin-top:10px;display:flex;align-items:center;gap:8px}
   .foot-cert a{color:#9db9f2;text-decoration:none;border-bottom:1px solid rgba(91,141,239,.35)}
   @media(max-width:820px){.cert-pill{display:none}}
+
+  .brand-col{display:flex;flex-direction:column;gap:4px;align-items:flex-start}
+  .cert-pill{font-family:"Inter",sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:#9db9f2;border:1px solid rgba(91,141,239,.35);border-radius:999px;padding:3px 11px 3px 7px;background:rgba(91,141,239,.06);white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+  .cert-pill:hover{border-color:rgba(91,141,239,.65)}
+  .cert-pill .bo{font-weight:500;color:var(--mute);text-transform:none;letter-spacing:.03em}
+  .mk-hex{width:13px;height:13px;display:block}
+  .foot-cert{color:var(--mute);font-size:12.5px;margin-top:10px;display:flex;align-items:center;gap:8px}
+  .foot-cert a{color:#9db9f2;text-decoration:none;border-bottom:1px solid rgba(91,141,239,.35)}
+  .legal-line{font-size:11px;color:var(--mute);opacity:.75;margin-top:6px}
 </style>
 </head>
 <body class="uni">
 
 <header>
   <div class="wrap bar">
-    <a href="index.html" class="logo">Kor<b>mic</b></a>
+    <div class="brand-col"><a href="index.html" class="logo">Kor<b>mic</b></a><a class="cert-pill" href="https://meshkor.ai/programme.html"><svg class="mk-hex" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 2 4 9v14l12 7 12-7V9L16 2Z" stroke="#5B8DEF" stroke-width="1.4" fill="rgba(91,141,239,0.07)"/><path d="M16 8 10 11.5v7L16 22l6-3.5v-7L16 8Z" stroke="rgba(91,141,239,.55)" stroke-width="1.2" fill="none"/><circle cx="16" cy="15" r="2.1" fill="#FF6B4A"/></svg><span class="bo">Built on</span> MeshKor · Trusted Bot Programme</a></div>
     <nav class="nav">
       <span class="links" style="display:flex;gap:28px">
         <a href="students.html">Students</a>
@@ -41,7 +50,7 @@
 <section class="phero wrap">
   <div class="eyebrow">For universities</div>
   <h1>Real, verified applicants. <span class="em">No noise.</span></h1>
-  <p class="sub">Your team shouldn't spend its days sorting real students from fabricated ones. On Kormic, every applicant is verified before they reach you, matched to your programs, and their agent talks to yours, so you meet people who fit and skip the ones who don't.</p>
+  <p class="sub">Your team shouldn't spend its days sorting real students from fabricated ones. On Kormic, every applicant is verified before they reach you, matched to your programs, and their AI agent talks to yours, so you meet people who fit and skip the ones who don't.</p>
   <div class="actions">
     <a href="#talk" class="btn btn-blue">Get the app</a>
     <a href="about.html" class="btn btn-ghost">How it works →</a>
@@ -50,7 +59,7 @@
 
 <section class="section soft">
   <div class="wrap">
-    <div class="eyebrow" style="color:var(--link)">What your agent does</div>
+    <div class="eyebrow" style="color:var(--link)">What your AI agent does</div>
     <h2>It answers, and it learns.</h2>
     <div class="rows">
       <div class="row"><div class="num">01</div><div><h4>Meets verified students only</h4><p>Every applicant on Kormic is a confirmed real person with a verified profile. You start from trust, not suspicion, and your team's time goes to people instead of paperwork.</p></div></div>
