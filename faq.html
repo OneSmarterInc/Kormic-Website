@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kormic — Questions, answered</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="kormic.css">
+<style>
+  :root{
+    --ink:#12132A; --panel:#1E2145; --paper:#F6F5F1; --coral:#FF6B4A;
+    --blue:#5B8DEF; --mute:#8A8BA3; --line:rgba(246,245,241,.13);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--ink);color:var(--paper);font-family:"Inter",sans-serif;line-height:1.65}
+  .fwrap{max-width:1150px;margin:0 auto;padding:46px 26px 70px}
+  h1,h2{font-family:"Fraunces",serif;font-weight:600;letter-spacing:-.02em;line-height:1.1}
+  h1{font-size:42px;margin-bottom:12px}
+  h1 .em{color:var(--coral);font-style:italic}
+  .lede{color:var(--mute);font-size:15.5px;max-width:60ch;margin-bottom:44px}
+  .cols{display:grid;grid-template-columns:1fr 400px;gap:36px;align-items:start}
+  @media(max-width:960px){.cols{grid-template-columns:1fr}}
+
+  .section{margin-bottom:38px}
+  h2{font-size:23px;margin-bottom:6px}
+  .sec-sub{color:var(--mute);font-size:13px;margin-bottom:16px}
+  .qa{border:1px solid var(--line);border-radius:12px;margin-bottom:10px;overflow:hidden;background:rgba(30,33,69,.45)}
+  .q{width:100%;text-align:left;background:none;border:none;color:var(--paper);font-family:"Inter",sans-serif;font-size:15px;font-weight:600;padding:15px 18px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:14px}
+  .q:hover{background:rgba(246,245,241,.03)}
+  .q .tog{color:var(--coral);font-size:19px;flex:none;transition:transform .18s}
+  .qa.open .tog{transform:rotate(45deg)}
+  .a{display:none;padding:0 18px 16px;color:#CBCAD9;font-size:14.5px}
+  .qa.open .a{display:block}
+  .a b{color:var(--paper)}
+
+  /* chat */
+  .chat{position:sticky;top:24px;background:var(--panel);border:1px solid var(--line);border-radius:18px;display:flex;flex-direction:column;height:640px;overflow:hidden}
+  .chat-head{padding:16px 18px;border-bottom:1px solid var(--line)}
+  .chat-head .t{font-family:"Fraunces",serif;font-size:19px}
+  .chat-head .t b{color:var(--coral);font-weight:600}
+  .chat-head .s{font-size:12px;color:var(--mute);margin-top:3px}
+  .msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
+  .msgs::-webkit-scrollbar{width:5px}
+  .msgs::-webkit-scrollbar-thumb{background:rgba(246,245,241,.15);border-radius:3px}
+  .msg{max-width:90%;padding:10px 13px;border-radius:13px;font-size:13.5px;line-height:1.55;white-space:pre-wrap}
+  .msg.from-user{align-self:flex-end;background:var(--coral);color:#1a0f0a;border-radius:13px 3px 13px 13px}
+  .msg.from-agent{align-self:flex-start;background:rgba(246,245,241,.06);border:1px solid var(--line);border-radius:3px 13px 13px 13px}
+  .msg.thinking{color:var(--mute);font-style:italic}
+  .chips{padding:0 16px 10px;display:flex;flex-wrap:wrap;gap:7px}
+  .chip{font-size:12px;padding:7px 12px;border-radius:100px;border:1px solid var(--line);background:none;color:#CBCAD9;cursor:pointer;font-family:"Inter",sans-serif}
+  .chip:hover{border-color:var(--coral);color:var(--paper)}
+  .inrow{display:flex;gap:9px;padding:12px 16px;border-top:1px solid var(--line)}
+  .inrow input{flex:1;background:rgba(246,245,241,.06);border:1px solid var(--line);border-radius:100px;padding:11px 16px;color:var(--paper);font-size:13.5px;font-family:"Inter",sans-serif;outline:none}
+  .inrow input:focus{border-color:var(--coral)}
+  .inrow button{background:var(--coral);color:#1a0f0a;border:none;border-radius:100px;padding:11px 18px;font-weight:600;font-size:13.5px;cursor:pointer;font-family:"Inter",sans-serif}
+  .inrow button:disabled{opacity:.45;cursor:not-allowed}
+  .note{font-size:11px;color:var(--mute);text-align:center;padding:0 16px 12px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <div class="brand-col"><a href="index.html" class="logo">Kor<b>mic</b></a><a class="cert-pill" href="https://meshkor.ai/programme.html"><svg class="mk-hex" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 2 4 9v14l12 7 12-7V9L16 2Z" stroke="#5B8DEF" stroke-width="1.4" fill="rgba(91,141,239,0.07)"/><path d="M16 8 10 11.5v7L16 22l6-3.5v-7L16 8Z" stroke="rgba(91,141,239,.55)" stroke-width="1.2" fill="none"/><circle cx="16" cy="15" r="2.1" fill="#FF6B4A"/></svg><span class="bo">Built on</span> MeshKor · Trusted Bot Programme</a></div>
+    <nav class="nav">
+      <span class="links" style="display:flex;gap:28px">
+        <a href="students.html">Students</a>
+        <a href="universities.html">Universities</a>
+        <a href="about.html">About</a>
+        <a href="faq.html" class="active">FAQ</a>
+      </span>
+      <a href="index.html" class="pill">Home</a>
+    </nav>
+  </div>
+</header>
+
+<div class="fwrap">
+  <h1>New idea. Fair questions. <span class="em">Real answers.</span></h1>
+  <p class="lede">Kormic is a new kind of thing, so we've written down the questions people actually ask — and put a working agent on this page. The fastest way to understand what an agent is: ask one.</p>
+
+  <div class="cols">
+    <div>
+      <!-- EVERYONE -->
+      <div class="section">
+        <h2>For everyone</h2>
+        <div class="sec-sub">The basics</div>
+        <div class="qa"><button class="q" onclick="tg(this)">What is Kormic? <span class="tog">+</span></button>
+          <div class="a">Kormic connects verified students with universities through AI agents. Every student gets a Navigator of their own — an AI agent that knows their real, verified story and carries it to universities. Every university gets an AI agent of its own — it knows the university's programs and answers student questions instantly, any hour, any timezone. The agents talk to each other so the people don't have to chase information.</div></div>
+        <div class="qa"><button class="q" onclick="tg(this)">What is a Navigator? <span class="tog">+</span></button>
+          <div class="a">A Navigator is your own AI agent — a representative that works for you and only you. It knows your verified profile, answers your questions, goes and finds answers for you, and comes back when it has them. Think of it as a shadow of you: it moves when you move, it represents you faithfully, and it never claims to <b>be</b> you. (Universities have agents too — your Navigator is the one that's yours.) There's a working agent on this page — ask it something.</div></div>
+        <div class="qa"><button class="q" onclick="tg(this)">Does my Navigator pretend to be me? <span class="tog">+</span></button>
+          <div class="a">No, and this is a rule, not a setting. Your Navigator always speaks <b>as your representative</b> — "I represent this student" — never as you. It can't diverge from your record because it's built from your verified profile, and it can't impersonate you because it always identifies itself as what it is. Faithful representation, never impersonation.</div></div>
+        <div class="qa"><button class="q" onclick="tg(this)">What does "verified" actually mean? <span class="tog">+</span></button>
+          <div class="a">It means claims were checked, not just typed. Today that includes proving you control your GitHub account through a real authorization (not just pasting a link), your documents, and — where a university provides its enrolled-student list — confirmation that your own university vouches for you. Deeper identity verification, including face verification, is in development. We only ever claim what we've actually checked.</div></div>
+        <div class="qa"><button class="q" onclick="tg(this)">The students are verified — but are the agents themselves? <span class="tog">+</span></button>
+          <div class="a">Yes, and this is one of the things that makes Kormic different. Every Navigator and every university agent is certified under the <b>Trusted Bot Programme</b> from MeshKor, the trust layer Kormic is built on. Each agent gets a sealed identity when it's created, carries a tamper-evident record of its history, and operates within strict, bounded permissions it can't widen on its own. So it's not just the people who are verified — the agents representing them are too, and that can be checked.</div></div>
+        <div class="qa"><button class="q" onclick="tg(this)">Who is behind Kormic? <span class="tog">+</span></button>
+          <div class="a">Kormic, LLC, an Ohio company. We're building this deliberately and in the open with a small number of universities and students first, because a trust platform has to earn trust the slow way.</div></div>
+      </div>
+
+      <!-- STUDENTS -->
+      <div class="section">
+        <h2>For students</h2>
+        <div class="sec-sub">Your agent, your story</div>
+        <div class="qa"><button class="q" onclick="tg(this)">What does my Navigator actually do for me? <span class="tog">+</span></button>
+          <div class="a">Two things. It carries your verified story to universities that are looking for someone like you — so your real work speaks, not just a form. And it answers your questions: instead of hunting across university websites at midnight, you ask your Navigator. It either knows the answer or goes and gets it from the university's agent, and tells you when it's back.</div></div>
+        <div class="qa"><button class="q" onclick="tg(this)">What happens when my Navigator doesn't know something? <span class="tog">+</span></button>
+          <div class="a">It says so, honestly — "I'm checking with the university on this" — and the question goes to a real person at the university. When they answer, your phone lights up. And here's the part that makes the system smarter every day: that answer is now <b>learned</b>. The next student who asks gets it instantly. Answered once by a human, known forever by the agent.</div></div>
+        <div class="qa"><button class="q" onclick="tg(this)">Why should I connect my real GitHub? <span class="tog">+</span></button>
+          <div class="a">Because it's the strongest thing you have. Anyone can claim skills on a form; verified repositories are proof. When you connect through GitHub's own authorization, universities know the work is genuinely yours — and that puts you in a completely different pile from every polished, unverifiable application they receive.</div></div>
+        <div class="qa"><button class="q" onclick="tg(this)">Is this like an education consultant or agent? <span class="tog">+</span></button>
+          <div class="a">No. Education agents work on commission and are paid to place you somewhere. Your Navigator works for <b>you</b> — it has no commission, no placement targets, and no incentive except representing you accurately. It's closer to having your own advocate than having a middleman.</div></div>
+        <div class="qa"><button class="q" onclick="tg(this)">What does it cost me? <span class="tog">+</span></button>
+          <div class="a">Nothing. Students never pay. Verification belongs to you, your agent works for you, and that stays free.</div></div>
+        <div class="qa"><button class="q" onclick="tg(this)">What happens to my data? Can I leave? <span class="tog">+</span></button>
+          <div class="a">Your profile is yours. We collect what's needed to verify you and run your Navigator, we don't sell it, and universities see your profile because that's the point — you built it to be seen by them. If you want to stop, you can: your Navigator stops representing you and you can request deletion of your data. The full details live in our privacy policy, written to be readable.</div></div>
+        <div class="qa"><button class="q" onclick="tg(this)">What happens after I get admitted? <span class="tog">+</span></button>
+          <div class="a">Your Navigator doesn't retire — it grows with you. The same Navigator that carried you through admissions can carry you through arriving on campus, then internships, then your first job search. Each phase of your life becomes a new face of the same Navigator, built on the same verified history. Admissions is just its first job.</div></div>
+      </div>
+
+      <!-- UNIVERSITIES -->
+      <div class="section">
+        <h2>For universities</h2>
+        <div class="sec-sub">Your agent, your knowledge, your control</div>
+        <div class="qa"><button class="q" onclick="tg(this)">How is this different from a chatbot on our website? <span class="tog">+</span></button>
+          <div class="a">A chatbot waits on your site for students to find it. Here, students don't come to you at all — they ask their own Navigator, and their Navigator asks your agent. Your agent answers from knowledge you approved, escalates what it can't answer to your staff, and permanently learns every answer they give. It takes the high-volume, repetitive, answer-shaped exchanges — the ones that never needed a human but got one anyway — and leaves the genuinely human conversations to your people.</div></div>
+        <div class="qa"><button class="q" onclick="tg(this)">Who answers when the agent doesn't know? <span class="tog">+</span></button>
+          <div class="a">A named person on your staff — you choose who, per area. Unanswerable questions land in a queue in your portal; an officer answers once; the agent learns it permanently and every future student gets it instantly. The measure we hold ourselves to: questions reaching your humans should <b>fall</b> over time, even as student numbers grow. If that curve doesn't bend down, the system isn't working.</div></div>
+        <div class="qa"><button class="q" onclick="tg(this)">What if the agent says something wrong in our name? <span class="tog">+</span></button>
+          <div class="a">Three protections. Your agent only answers from knowledge with a known source — your official pages, your officers' verified answers. When it isn't confident, it doesn't guess; it escalates and says "let me check." And everything it has learned is visible and editable in your portal — you can correct any answer, and the correction takes effect for every future student immediately.</div></div>
+        <div class="qa"><button class="q" onclick="tg(this)">What do we have to build or staff? <span class="tog">+</span></button>
+          <div class="a">Almost nothing. We stand your agent up from material you already have — your program pages, FAQs, policies. Your commitment is people, not systems: a named contact for each area (admissions, international office, finance, campus life) who answers what escalates. That workload starts small and shrinks, because every answer teaches the agent.</div></div>
+        <div class="qa"><button class="q" onclick="tg(this)">How do we know the students are real? <span class="tog">+</span></button>
+          <div class="a">Because their claims were checked. GitHub connected through real authorization, documents on file, and — where their own institution provides its student list — the institution itself vouching for them. Profiles show how they were verified, so you always know what's behind what you're reading. In a world of AI-polished applications, that's the difference between claimed and proven.</div></div>
+        <div class="qa"><button class="q" onclick="tg(this)">Who owns the knowledge our officers contribute? <span class="tog">+</span></button>
+          <div class="a">You do. Your pages, your answers, your corrections — it's your institutional knowledge, held for your agent, editable and exportable by you. We operate the system; the knowledge is yours.</div></div>
+        <div class="qa"><button class="q" onclick="tg(this)">What does it cost? <span class="tog">+</span></button>
+          <div class="a">Kormic is in pre-release. We're working with a small number of universities and students first, deliberately, because a trust platform has to earn trust before it charges for it. Subscription information will be published closer to full commercial release.</div></div>
+        
+      </div>
+    </div>
+
+    <!-- AGENT -->
+    <div class="chat">
+      <div class="chat-head">
+        <div class="t">Ask Kor<b>mic</b></div>
+        <div class="s">v9 · A working agent, answering from this page's knowledge. Ask it anything above — or something we didn't think of.</div>
+      </div>
+      <div class="msgs" id="msgs">
+        <div class="msg from-agent">Hi — I'm a Kormic agent. I answer from the verified knowledge on this page, and when I don't know something, I'll tell you honestly (in the real product, that's when a human gets asked — and I'd learn the answer forever). What would you like to know?</div>
+      </div>
+      <div class="chips">
+        <button class="chip" onclick="ask('What is a Navigator?')">What's a Navigator?</button>
+        <button class="chip" onclick="ask('Does my Navigator pretend to be me?')">Does it impersonate me?</button>
+        <button class="chip" onclick="ask('What happens when you don\'t know an answer?')">When you don't know?</button>
+      </div>
+      <div class="inrow">
+        <input id="inp" placeholder="Ask about Kormic..." onkeydown="if(event.key==='Enter')send()">
+        <button id="sendbtn" onclick="send()">Ask</button>
+      </div>
+      <div class="note">Demonstration agent answering from this page's knowledge. On the live site, this is a full AI agent.</div>
+      <div class="note" style="padding-top:2px;color:#5B8DEF;">Built on MeshKor · Certified under the Trusted Bot Programme</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function tg(btn){ btn.parentElement.classList.toggle('open'); }
+
+const QA_PAIRS = Array.from(document.querySelectorAll('.qa')).map(function(qa){
+  return { q: qa.querySelector('.q').textContent.replace('+','').trim(),
+           a: qa.querySelector('.a').textContent.trim() };
+});
+
+const STOP = {};
+'what is the a an do does my your our i it to of for and or me you we how can are this that about when who on in with'.split(' ').forEach(function(w){STOP[w]=1;});
+function toks(s){
+  return s.toLowerCase().replace(/[^a-z0-9\s]/g,' ').split(/\s+/).filter(function(w){return w && !STOP[w];}).map(function(w){return w.replace(/(ies|ied|es|ed|ing|s)$/,'');});
+}
+function localAnswer(text){
+  var qt = toks(text), best=null, bestScore=0;
+  for(var i=0;i<QA_PAIRS.length;i++){
+    var p=QA_PAIRS[i], qw={}, aw={};
+    toks(p.q).forEach(function(w){qw[w]=1;});
+    toks(p.a).forEach(function(w){aw[w]=1;});
+    var s=0;
+    qt.forEach(function(w){ if(qw[w]) s+=3; else if(aw[w]) s+=1.5; });
+    if(s>bestScore){ bestScore=s; best=p; }
+  }
+  var need = Math.min(4, qt.length*3); if(best && bestScore>=need) return best.a;
+  return "I don't have that in my knowledge, and I won't guess. This is exactly how Kormic works: in the real product, a Navigator would send this question to a named human at the university, their answer would come back to you, and I'd learn it permanently so the next person who asks gets it instantly.";
+}
+
+function ask(t){ var i=document.getElementById('inp'); i.value=t; send(); }
+
+function send(){
+ try{
+  var inp=document.getElementById('inp');
+  var text=inp.value.trim();
+  if(!text) return;
+  inp.value='';
+  var msgs=document.getElementById('msgs');
+  var u=document.createElement('div'); u.className='msg from-user'; u.textContent=text; msgs.appendChild(u);
+  var a=document.createElement('div'); a.className='msg from-agent thinking'; a.textContent='thinking\u2026'; msgs.appendChild(a);
+  msgs.scrollTop=msgs.scrollHeight;
+  setTimeout(function(){
+    try{
+      a.classList.remove('thinking');
+      a.textContent=localAnswer(text);
+    }catch(err){
+      a.classList.remove('thinking');
+      a.textContent='Something broke in my page code: '+err.message;
+    }
+    msgs.scrollTop=msgs.scrollHeight;
+  }, 450);
+ }catch(err){
+  var msgs2=document.getElementById('msgs');
+  var e=document.createElement('div'); e.className='msg from-agent';
+  e.textContent='Something broke in my page code: '+err.message;
+  msgs2.appendChild(e);
+ }
+}
+</script>
+  <div style="margin-top:70px;padding-top:22px;border-top:1px solid var(--line);text-align:center;font-size:12.5px;color:var(--mute);">Built on <span style="color:#5B8DEF;font-weight:600;">MeshKor</span> · Certified under the <span style="color:#F6F5F1;font-weight:600;">Trusted Bot Programme</span></div>
+<footer>
+  <div class="wrap foot">
+    <a href="index.html" class="logo">Kor<b>mic</b></a>
+    <div class="foot-cert"><svg class="mk-hex" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 2 4 9v14l12 7 12-7V9L16 2Z" stroke="#5B8DEF" stroke-width="1.4" fill="rgba(91,141,239,0.07)"/><path d="M16 8 10 11.5v7L16 22l6-3.5v-7L16 8Z" stroke="rgba(91,141,239,.55)" stroke-width="1.2" fill="none"/><circle cx="16" cy="15" r="2.1" fill="#FF6B4A"/></svg>Every Kormic Navigator carries a verifiable pedigree — certified under the <a href="https://meshkor.ai/programme.html">MeshKor Trusted Bot Programme</a>.</div>
+    <div class="foot-links"><a href="students.html">Students</a><a href="universities.html">Universities</a><a href="about.html">About</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+    <div>© 2026 Kormic, LLC · Ohio, USA</div>
+    <div class="legal-line">The MeshKor name, hex mark, and Trusted Bot Programme are the property of MeshKor, Inc., used with permission.</div>
+  </div>
+</footer>
+</body>
+</html>
